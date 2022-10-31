@@ -17,7 +17,6 @@ clause_temp_file = open("nqueens_clauses.txt", "w")
 
 
 # GENERATE ROWS
-#(Generates #Rows * ((#Rows-1)^2 + #Rows - 1 +2)/2 Clauses or #Rows * (Lazy Caterer's Sequence of the #Rows-1)
 for i in range(1, total_spaces+1, n):
     temp_clause = ""
     for j in range(i, n+i):
