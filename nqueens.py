@@ -24,10 +24,9 @@ with open("nqueens_clauses.txt", "w") as clause_temp_file:
         clause_temp_file.write(temp_clause + "0\n")
         clause_count += 1
         for j in range(i, n+i):
-            for k in range(j, n+i):
-                if(j != k):
-                    clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
-                    clause_count += 1
+            for k in range(j+1, n+i):
+                clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                clause_count += 1
 
     # GENERATE COLUMNS
     for i in range(1,  n+1):
@@ -37,13 +36,50 @@ with open("nqueens_clauses.txt", "w") as clause_temp_file:
         clause_temp_file.write(temp_clause + "0\n")
         clause_count += 1
         for j in range(i, total_spaces+i, n):
-            for k in range(j, total_spaces+i, n):
-                if(j != k):
-                    clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
-                    clause_count += 1
+            for k in range(j+n, total_spaces+i, n):
+                clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                clause_count += 1
 
     # GENERATE DIAGONALES
+    # idea 1
+    for i in range(1, n+1):
+        for j in range(i, total_spaces+1, n-1):
+            if(j == i*n):
+                break
+            for k in range(j + n-1, total_spaces+1, n-1):
+                if(k == i*n):
+                    break
+                clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                clause_count += 1
+        for j in range(i, total_spaces+1, n+1):
+            if(j == i +(n+1)*(n+1-i)):
+                break
+            for k in range(j + n+1, total_spaces+1, n+1):
+                if(k == i +(n+1)*(n+1-i)):
+                    break
+                clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                clause_count += 1
 
+    # need to modify this section to do the rest of the grid
+    for i in range(total_spaces, total_spaces-n, -1):
+        if i != total_spaces:
+            for j in range(i, 0, -n-1):
+                if(j == i - (n+1) * (i-(n*(n-1))) ):
+                    break
+                for k in range(j-n-1, 0, -n-1):
+                    if(k == i - (n+1) * (i-(n*(n-1)))):
+                        break
+                    clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                    clause_count += 1
+        if i != total_spaces - n + 1:
+            for j in range(i, 0, -n+1):
+                if(j == (i-(n*(n-1))-1) * n + 1 ):
+                    break
+                for k in range(j - n+1, 0, -n+1):
+                    if(k == (i-(n*(n-1))-1) * n + 1 ):
+                        break
+                    clause_temp_file.write("-" + str(j) + " -" + str(k) + " 0\n")
+                    clause_count += 1
     clause_temp_file.close()
 
 
