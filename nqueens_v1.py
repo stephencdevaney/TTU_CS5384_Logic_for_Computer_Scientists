@@ -125,7 +125,7 @@ with open("nqueens_v1.cnf", "w") as outfile:
 os.remove("nqueens_clauses.txt")
 
 # RUN MINISAT
-#os.system("./minisat nqueens_v1.cnf output.txt")
+os.system("./minisat nqueens_v1.cnf output.txt")
 sat = False
 solution_count = 0
 with open("output.txt", "r") as satfile:
@@ -146,6 +146,7 @@ with open("output.txt", "r") as satfile:
     satfile.close()
 
 while sat:
+    os.system("./minisat temp.cnf output.txt")
     with open("output.txt", "r") as satfile:
         with open("all_solutions.txt", "a") as solfile:
             if satfile.readline().strip() == "SAT":
