@@ -125,4 +125,4 @@ outfile.close()
 os.remove("nqueens_clauses.txt")
 
 # RUN MINISAT
-os.system("minisat nqueens_v1.cnf -no-luby -rinc=1.5 -phase-saving=0 -rnd-freq=0.02")
+os.system("./minisat nqueens_v1.cnf -no-luby -rinc=1.5 -phase-saving=0 -rnd-freq=0.02")
