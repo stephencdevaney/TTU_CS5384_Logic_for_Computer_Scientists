@@ -121,8 +121,44 @@ with open("nqueens_v1.cnf", "w") as outfile:
                 break
             outfile.write(line)
         clause_temp_file.close()
-outfile.close()
+    outfile.close()
 os.remove("nqueens_clauses.txt")
 
 # RUN MINISAT
-os.system("./minisat nqueens_v1.cnf output.txt")
+#os.system("./minisat nqueens_v1.cnf output.txt")
+sat = False
+solution_count = 0
+with open("output.txt", "r") as satfile:
+    with open("all_solutions.txt", "w") as solfile:
+        if satfile.readline().strip() == "SAT":
+            sat = True
+            solfile.write("All Satisifable Solutions:\n")
+            line = satfile.readline()
+            os.system("cp nqueens_v1.cnf temp.cnf")
+            with open("temp.cnf", "a") as tempfile:
+                tempfile.write(line)
+                tempfile.close()
+            solfile.write(line)
+            solution_count += 1
+        else:
+            solfile.write("NO SATISIFABLE SOLUTIONS!")
+        solfile.close()
+    satfile.close()
+
+while !sat:
+    with open("output.txt", "r") as satfile:
+        with open("all_solutions.txt", "a") as solfile:
+            if satfile.readline().strip() == "SAT":
+                solfile.write("All Satisifable Solutions:\n")
+                line = satfile.readline()
+                with open("temp.cnf", "a") as tempfile:
+                    tempfile.write(line)
+                    tempfile.close()
+                solfile.write(line)
+                solution_count += 1
+            else:
+                sat = False
+                solfile.write("\nTotal number of solutions: " + str(solution_count))
+            solfile.close()
+        satfile.close()
+        
