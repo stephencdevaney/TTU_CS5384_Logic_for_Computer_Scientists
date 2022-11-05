@@ -112,7 +112,7 @@ with open("nqueens_v1.cnf", "w") as outfile:
         outfile.write("c FOR: CS5384 Logic for Computer Scientists\n")
         outfile.write("c Uses each position as a proposition letter on a " + str(n) + "x" + str(n) + " board.\n")
         outfile.write("c This gives us a total of " + str(total_spaces) + " total spaces.\n")
-        outfile.write("p CNF " + str(total_spaces) + ", " + str(clause_count) + "\n")
+        outfile.write("p cnf " + str(total_spaces) + " " + str(clause_count) + "\n")
 
         #copy clause file to output file
         while True:
@@ -125,4 +125,4 @@ outfile.close()
 os.remove("nqueens_clauses.txt")
 
 # RUN MINISAT
-os.system("./minisat nqueens_v1.cnf -no-luby -rinc=1.5 -phase-saving=0 -rnd-freq=0.02")
+os.system("./minisat nqueens_v1.cnf output.txt")
