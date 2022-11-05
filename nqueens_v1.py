@@ -145,7 +145,7 @@ with open("output.txt", "r") as satfile:
         solfile.close()
     satfile.close()
 
-while !sat:
+while sat:
     with open("output.txt", "r") as satfile:
         with open("all_solutions.txt", "a") as solfile:
             if satfile.readline().strip() == "SAT":
