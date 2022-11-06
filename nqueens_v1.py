@@ -188,4 +188,3 @@ while sat:
                 sat = False
                 solfile.write("\nTotal number of solutions: " + str(solution_count))
             solfile.close()
-        
