@@ -25,6 +25,19 @@ def at_most_one(propositional_list):
             return_count += 1
     return return_clause, return_count
 
+def flip_solution(solution):
+    solution_string = ""
+    solution_list = solution.strip().split(" ")
+    for letter in solution_list:
+        if letter[0].isdigit() and letter[0] != '0':
+            solution_string += "-" + letter + " "
+        elif letter[0] == '0':
+            solution_string += letter
+        else:
+            solution_string += letter[1:] + " "
+    return solution_string + "\n"
+                
+
 
 
 ##################### MAIN PROGRAM
@@ -32,6 +45,7 @@ def at_most_one(propositional_list):
 clause_count = 0
 n = 4
 total_spaces = n * n
+ALL_SOLUTIONS = False
 
 # Open clause output file
 with open("nqueens_clauses.txt", "w") as clause_temp_file:
@@ -125,47 +139,18 @@ with open("nqueens_v1.cnf", "w") as outfile:
 os.remove("nqueens_clauses.txt")
 
 # RUN MINISAT
-os.system("./minisat nqueens_v1.cnf output.txt")
-sat = False
-solution_count = 0
-with open("output.txt", "r") as satfile:
-    with open("all_solutions.txt", "w") as solfile:
-        if satfile.readline().strip() == "SAT":
-            line = satfile.readline()
-            satfile.close()
-            sat = True
-            solfile.write("All Satisifable Solutions:\n")
-            os.system("cp nqueens_v1.cnf temp.cnf")
-            with open("temp.cnf", "r") as tempfile1:
-                with open("temp2.cnf", "w") as tempfile2:
-                    templine = tempfile1.readline()
-                    flag = False
-                    while True:
-                        if not templine:
-                            break
-                        if templine[0].isdigit():
-                            if not flag:
-                                flag = True
-                                solution_count += 1
-                                tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
-                            tempfile2.write(templine)
-                        templine = tempfile1.readline()
-                    tempfile2.close()
-                tempfile1.close()
-                os.system("mv temp2.cnf temp.cnf")
-            solfile.write(line)
-        else:
-            solfile.write("NO SATISIFABLE SOLUTIONS!")
-        solfile.close()
-
-while sat:
-    os.system("./minisat temp.cnf output.txt")
+os.system("./minisat nqueens_v1.cnf output.txt")  
+if ALL_SOLUTIONS:
+    sat = False
+    solution_count = 0
     with open("output.txt", "r") as satfile:
-        with open("all_solutions.txt", "a") as solfile:
+        with open("all_solutions.txt", "w") as solfile:
             if satfile.readline().strip() == "SAT":
                 line = satfile.readline()
                 satfile.close()
+                sat = True
                 solfile.write("All Satisifable Solutions:\n")
+                os.system("cp nqueens_v1.cnf temp.cnf")
                 with open("temp.cnf", "r") as tempfile1:
                     with open("temp2.cnf", "w") as tempfile2:
                         templine = tempfile1.readline()
@@ -173,18 +158,48 @@ while sat:
                         while True:
                             if not templine:
                                 break
-                            if templine[0].isdigit() || templine[0] == "-":
+                            if templine[0].isdigit() or templine[0] == "-":
                                 if not flag:
                                     flag = True
                                     solution_count += 1
                                     tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
-                                tempfile2.write(templine)
+                                tempfile2.write(flip_solution(templine))
                             templine = tempfile1.readline()
                         tempfile2.close()
                     tempfile1.close()
                     os.system("mv temp2.cnf temp.cnf")
                 solfile.write(line)
             else:
-                sat = False
-                solfile.write("\nTotal number of solutions: " + str(solution_count))
+                solfile.write("NO SATISIFABLE SOLUTIONS!")
             solfile.close()
+
+    while sat:
+        os.system("./minisat temp.cnf output.txt")
+        with open("output.txt", "r") as satfile:
+            with open("all_solutions.txt", "a") as solfile:
+                if satfile.readline().strip() == "SAT":
+                    line = satfile.readline()
+                    satfile.close()
+                    solfile.write("All Satisifable Solutions:\n")
+                    with open("temp.cnf", "r") as tempfile1:
+                        with open("temp2.cnf", "w") as tempfile2:
+                            templine = tempfile1.readline()
+                            flag = False
+                            while True:
+                                if not templine:
+                                    break
+                                if templine[0].isdigit() or templine[0] == "-":
+                                    if not flag:
+                                        flag = True
+                                        solution_count += 1
+                                        tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
+                                    tempfile2.write(flip_solution(templine))
+                                templine = tempfile1.readline()
+                            tempfile2.close()
+                        tempfile1.close()
+                        os.system("mv temp2.cnf temp.cnf")
+                    solfile.write(line)
+                else:
+                    sat = False
+                    solfile.write("\nTotal number of solutions: " + str(solution_count))
+                solfile.close()
