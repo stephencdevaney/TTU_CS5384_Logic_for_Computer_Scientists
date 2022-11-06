@@ -138,8 +138,11 @@ with open("nqueens_v1.cnf", "w") as outfile:
     outfile.close()
 os.remove("nqueens_clauses.txt")
 
+
 # RUN MINISAT
-os.system("./minisat nqueens_v1.cnf output.txt")  
+os.system("./minisat nqueens_v1.cnf output.txt")
+
+# if all solutions are requested then recursively run minisat solver with updated cnf file
 if ALL_SOLUTIONS:
     sat = False
     solution_count = 0
