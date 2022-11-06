@@ -145,6 +145,7 @@ with open("output.txt", "r") as satfile:
                             break
                         if templine[0].isdigit():
                             if not flag:
+                                flag = True
                                 solution_count += 1
                                 tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
                             tempfile2.write(templine)
@@ -166,7 +167,6 @@ while sat:
                 satfile.close()
                 sat = True
                 solfile.write("All Satisifable Solutions:\n")
-                os.system("cp nqueens_v1.cnf temp.cnf")
                 with open("temp.cnf", "r") as tempfile1:
                     with open("temp2.cnf", "w") as tempfile2:
                         templine = tempfile1.readline()
@@ -176,6 +176,7 @@ while sat:
                                 break
                             if templine[0].isdigit():
                                 if not flag:
+                                    flag = True
                                     solution_count += 1
                                     tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
                                 tempfile2.write(templine)
