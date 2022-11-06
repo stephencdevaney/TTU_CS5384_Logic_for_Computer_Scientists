@@ -131,35 +131,61 @@ solution_count = 0
 with open("output.txt", "r") as satfile:
     with open("all_solutions.txt", "w") as solfile:
         if satfile.readline().strip() == "SAT":
+            line = satfile.readline()
+            satfile.close()
             sat = True
             solfile.write("All Satisifable Solutions:\n")
-            line = satfile.readline()
             os.system("cp nqueens_v1.cnf temp.cnf")
-            with open("temp.cnf", "a") as tempfile:
-                tempfile.write(line)
-                tempfile.close()
+            with open("temp.cnf", "r") as tempfile1:
+                with open("temp2.cnf", "w") as tempfile2:
+                    templine = tempfile1.readline()
+                    flag = False
+                    while True:
+                        if not templine:
+                            break
+                        if templine[0].isdigit():
+                            if not flag:
+                                solution_count += 1
+                                tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
+                            tempfile2.write(templine)
+                        templine = tempfile1.readline()
+                    tempfile2.close()
+                tempfile1.close()
+                os.system("mv temp2.cnf temp.cnf")
             solfile.write(line)
-            solution_count += 1
         else:
             solfile.write("NO SATISIFABLE SOLUTIONS!")
         solfile.close()
-    satfile.close()
 
 while sat:
     os.system("./minisat temp.cnf output.txt")
     with open("output.txt", "r") as satfile:
-        with open("all_solutions.txt", "a") as solfile:
+        with open("all_solutions.txt", "w") as solfile:
             if satfile.readline().strip() == "SAT":
-                solfile.write("All Satisifable Solutions:\n")
                 line = satfile.readline()
-                with open("temp.cnf", "a") as tempfile:
-                    tempfile.write(line)
-                    tempfile.close()
+                satfile.close()
+                sat = True
+                solfile.write("All Satisifable Solutions:\n")
+                os.system("cp nqueens_v1.cnf temp.cnf")
+                with open("temp.cnf", "r") as tempfile1:
+                    with open("temp2.cnf", "w") as tempfile2:
+                        templine = tempfile1.readline()
+                        flag = False
+                        while True:
+                            if not templine:
+                                break
+                            if templine[0].isdigit():
+                                if not flag:
+                                    solution_count += 1
+                                    tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
+                                tempfile2.write(templine)
+                            templine = tempfile1.readline()
+                        tempfile2.close()
+                    tempfile1.close()
+                    os.system("mv temp2.cnf temp.cnf")
                 solfile.write(line)
-                solution_count += 1
             else:
                 sat = False
                 solfile.write("\nTotal number of solutions: " + str(solution_count))
             solfile.close()
-        satfile.close()
         
