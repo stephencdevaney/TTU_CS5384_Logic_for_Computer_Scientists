@@ -148,7 +148,7 @@ if ALL_SOLUTIONS:
             if satfile.readline().strip() == "SAT":
                 line = satfile.readline()
                 satfile.close()
-                sat = True
+                sat = False
                 solfile.write("All Satisifable Solutions:\n")
                 os.system("cp nqueens_v1.cnf temp.cnf")
                 with open("temp.cnf", "r") as tempfile1:
@@ -163,8 +163,9 @@ if ALL_SOLUTIONS:
                                     flag = True
                                     solution_count += 1
                                     tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
-                                tempfile2.write(flip_solution(templine))
+                                tempfile2.write(templine)
                             templine = tempfile1.readline()
+                        tempfile2.write(flip_solution(line))
                         tempfile2.close()
                     tempfile1.close()
                     os.system("mv temp2.cnf temp.cnf")
@@ -195,6 +196,7 @@ if ALL_SOLUTIONS:
                                         tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
                                     tempfile2.write(flip_solution(templine))
                                 templine = tempfile1.readline()
+                            tempfile2.write(flip_solution(line))
                             tempfile2.close()
                         tempfile1.close()
                         os.system("mv temp2.cnf temp.cnf")
@@ -203,3 +205,4 @@ if ALL_SOLUTIONS:
                     sat = False
                     solfile.write("\nTotal number of solutions: " + str(solution_count))
                 solfile.close()
+    #os.system("rm output.txt")
