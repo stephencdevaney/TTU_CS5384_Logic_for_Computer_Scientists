@@ -148,13 +148,13 @@ if ALL_SOLUTIONS:
             if satfile.readline().strip() == "SAT":
                 line = satfile.readline()
                 satfile.close()
-                sat = False
+                sat = True
                 solfile.write("All Satisifable Solutions:\n")
                 os.system("cp nqueens_v1.cnf temp.cnf")
                 with open("temp.cnf", "r") as tempfile1:
                     with open("temp2.cnf", "w") as tempfile2:
                         templine = tempfile1.readline()
-                        flag = True
+                        flag = False
                         while True:
                             if not templine:
                                 break
@@ -180,8 +180,9 @@ if ALL_SOLUTIONS:
             with open("all_solutions.txt", "a") as solfile:
                 if satfile.readline().strip() == "SAT":
                     line = satfile.readline()
+                    solfile.write(line)
                     satfile.close()
-                    solfile.write("All Satisifable Solutions:\n")
+                    solfile.close()
                     with open("temp.cnf", "r") as tempfile1:
                         with open("temp2.cnf", "w") as tempfile2:
                             templine = tempfile1.readline()
@@ -200,9 +201,9 @@ if ALL_SOLUTIONS:
                             tempfile2.close()
                         tempfile1.close()
                         os.system("mv temp2.cnf temp.cnf")
-                    solfile.write(line)
                 else:
                     sat = False
                     solfile.write("\nTotal number of solutions: " + str(solution_count))
-                solfile.close()
-    #os.system("rm output.txt")
+                    solfile.close()
+    os.system("rm temp.cnf")
+    os.system("rm output.txt")
