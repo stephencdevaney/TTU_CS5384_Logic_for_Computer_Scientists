@@ -161,11 +161,10 @@ with open("output.txt", "r") as satfile:
 while sat:
     os.system("./minisat temp.cnf output.txt")
     with open("output.txt", "r") as satfile:
-        with open("all_solutions.txt", "w") as solfile:
+        with open("all_solutions.txt", "a") as solfile:
             if satfile.readline().strip() == "SAT":
                 line = satfile.readline()
                 satfile.close()
-                sat = True
                 solfile.write("All Satisifable Solutions:\n")
                 with open("temp.cnf", "r") as tempfile1:
                     with open("temp2.cnf", "w") as tempfile2:
@@ -174,7 +173,7 @@ while sat:
                         while True:
                             if not templine:
                                 break
-                            if templine[0].isdigit():
+                            if templine[0].isdigit() || templine[0] == "-":
                                 if not flag:
                                     flag = True
                                     solution_count += 1
