@@ -45,7 +45,7 @@ def flip_solution(solution):
 clause_count = 0
 n = 4
 total_spaces = n * n
-ALL_SOLUTIONS = False
+ALL_SOLUTIONS = True
 
 # Open clause output file
 with open("nqueens_clauses.txt", "w") as clause_temp_file:
