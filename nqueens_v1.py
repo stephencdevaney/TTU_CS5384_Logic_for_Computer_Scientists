@@ -154,7 +154,7 @@ if ALL_SOLUTIONS:
                 with open("temp.cnf", "r") as tempfile1:
                     with open("temp2.cnf", "w") as tempfile2:
                         templine = tempfile1.readline()
-                        flag = False
+                        flag = True
                         while True:
                             if not templine:
                                 break
@@ -194,7 +194,7 @@ if ALL_SOLUTIONS:
                                         flag = True
                                         solution_count += 1
                                         tempfile2.write("p cnf " + str(total_spaces) + " " + str(clause_count + solution_count) + "\n")
-                                    tempfile2.write(flip_solution(templine))
+                                    tempfile2.write(templine)
                                 templine = tempfile1.readline()
                             tempfile2.write(flip_solution(line))
                             tempfile2.close()
