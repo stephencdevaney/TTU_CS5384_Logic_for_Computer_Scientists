@@ -59,7 +59,7 @@ def flip_solution(solution):
 # Setup default variables
 ALL_SOLUTIONS = False
 clause_count = 0
-SATSOLVER = "./minisat.exe"
+SATSOLVER = "./minisat"
 
 # Recieve User Input (ggiving the user to pass arguments from console or from command line)
 # Setup arg parser

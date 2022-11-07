@@ -65,7 +65,7 @@ def convert_index_to_letter(row_index, column_index, spaces_per_row):
 # Setup default variables
 ALL_SOLUTIONS = False
 clause_count = 0
-SATSOLVER = "./minisat.exe"
+SATSOLVER = "./minisat"
 
 # Recieve User Input (ggiving the user to pass arguments from console or from command line)
 # Setup arg parser
@@ -237,7 +237,7 @@ if(os.path.exists(SATSOLVER)):  # if path to the SATSOLVER is correct run SATSOL
 
         # if first solution is satisfactory write recursivly run SATSOLVER to generate all solotions and write to all solutions file. Regenerate temp.cnf file
         while sat:
-            os.system(SATSOLVER + " temp.cnf output.txt")
+            os.system(SATSOLVER  + " temp.cnf output.txt")
             with open("output.txt", "r") as satfile:
                 with open("all_solutions.txt", "a") as solfile:
                     if satfile.readline().strip() == "SAT":  # if the current solution is satisifable
