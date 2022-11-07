@@ -40,21 +40,21 @@ def flip_solution(solution):
     # Name: flip_solution
     # Input: solution: DIMACs CNF solution string
     # Output: solution_string: new solution string that is the inverse of solution
-    # Purpose: takes in a list of propositional letters and out puts a clause that represent at most one of the propositional letters are true (ie. $P0 \rightarrow \neg P1$ or $\neg P0 \vee \neg P1$) in DIMACs CNF
+    # Purpose: takes in an solution string and outputs the inverse of the solution string
     solution_string = ""
     solution_list = solution.strip().split(" ")
     for letter in solution_list:
         if letter[0].isdigit() and letter[0] != '0':
             solution_string += "-" + letter + " "
         elif letter[0] == '0':
-            solution_string += letter
+            solution_string += letter + "\n"
         else:
             solution_string += letter[1:] + " "
-    return solution_string + "\n"
+    return solution_string
 
 def convert_index_to_letter(row_index, column_index, spaces_per_row):
     # Name: convert_index_to_letter
-    # Input: row: current row, column: current column, spaces_per_row: number of spaces one each row
+    # Input: row_index: current row, column_index: current column, spaces_per_row: number of spaces one each row
     # Output: the propositional letter based off the index
     # Purpose: takes in a row and column index and converts it to a propositional letter based off the index and number of values per row ie n
     return row_index*spaces_per_row + column_index + 1
