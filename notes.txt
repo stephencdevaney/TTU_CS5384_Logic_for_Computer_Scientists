@@ -1,2 +1,0 @@
-# of Row Clauses = #Rows * ((#Rows-1)^2 + #Rows - 1 +2)/2 Clauses or #Rows * (Lazy Caterer's Sequence of the #Rows-1)
-Columns is the same so total # of row and columns would be 2 * # of Row Clauses
