@@ -1,5 +1,5 @@
 # CS5384 N-Queens SATSOLVER
-	[GitHub Repository](https://github.com/stephencdevaney/TTU_CS5384_Logic_for_Computer_Scientists)
+[GitHub Repository](https://github.com/stephencdevaney/TTU_CS5384_Logic_for_Computer_Scientists)
 
 ## Project Overview
 	This project generates a CNF file based on MINISAT for the n-queens problem. If 'minisat' is in the directory or path to SATSOLVER is
