@@ -13,7 +13,7 @@
 	You can download python from https://www.python.org/ and MINISAT from http://minisat.se/MiniSat.html .
 
 ## Usage:
-	usage: nqueens_v2.py <options>
+	nqueens_v2.py <options>
 
 ## Options:
 	-h, --help            show this help message and exit
