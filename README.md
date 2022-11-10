@@ -27,7 +27,6 @@
 		command line arguments
 		
 ## Extra Files Information
-	run.sh:
-		run.sh: is a bash script file that will unzip and install minisat-2.2.0.tar.gz. If you would like it to 
-			    run a different version then you will need to modify it.
-		minisat-2.2.0.tar.gz: student obtained version of minisat for the project
+	run.sh: is a bash script file that will unzip and install minisat-2.2.0.tar.gz. If you would like it to 
+		run a different version then you will need to modify it.
+	minisat-2.2.0.tar.gz: student obtained version of minisat for the project
