@@ -154,19 +154,20 @@ with open("nqueens_clauses.txt", "w") as clause_temp_file:
         clause = ""
         if(column != 0):  # since far left diagonal has already been generated skip this diagonal
             p_list = []
-            for row in range(n-1, column-1, -1):  # generate right diagonals and append them to list
+            for row in range(n-1, column-1, -1):  # generate left diagonals and append them to list
                 p_list.append(convert_index_to_letter(row, column+n-1-row, n))
             temp_clause, temp_count = at_most_one(p_list)  # call at most one 
             clause += temp_clause
             clause_count += temp_count
         if(column != n-1):  # since far right diagonal has already been generated skip this diagonal
             p_list = []
-            for row in range(n-1, n-column-2, -1):  # generate left diagonals and append them to list
+            for row in range(n-1, n-column-2, -1):  # generate right diagonals and append them to list
                 p_list.append(convert_index_to_letter(row, column-n+1+row, n))
             temp_clause, temp_count = at_most_one(p_list)  # call at most one 
             clause += temp_clause
             clause_count += temp_count 
         clause_temp_file.write(clause)  # write both at most one clauses to a file
+    clause_temp_file.close()
 
 # GENERATE FINAL CNF OUTPUT FILE
 # open output file and reopen clause file
